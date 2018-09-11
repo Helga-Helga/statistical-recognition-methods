@@ -1,15 +1,17 @@
-// Number of images
+// Number of input images (objects)
 const N: usize = 20;
-// Number of hidden parameters (digits)
+// Number of possible values of each hidden parameter (digits from 0 to 9)
 const D: usize = 10;
 
 extern crate rand;
 use rand::Rng;
 
 fn main() {
-    // Matrix of probabilities P(k_i / x_j)
-    // k_i are numbers from 0 to 9
-    // x_j are numbers of images
+    /*
+    Matrix of probabilities P(k_i / x_j)
+    k_i are numbers from 0 to 9
+    x_j are numbers of images
+    */
     let mut probabilities = [[0.0; D] ; N]; // 2D array: N rows x D columns
 
     for i in 0..N {
@@ -36,14 +38,14 @@ impl Cache {
     d:     value d = k1 + k2 + ... + k_N
     I:     I_p = k_1 + k_2 + ... + k_{p-1}
     */
-    fn fill_matrix(&mut self, index: usize, probabilities: <Vec<Vec<f64>>>,
-                   d: f64, I: f64) -> &mut self {
+    fn fill_matrix(&mut self, index: usize, probabilities: Vec<Vec<f64>>,
+                   d: f64, I: f64) -> &mut Self {
         // Fill the first matrix f1
         if index == 0 {
             for i in 0..(D*N) { // for each possible value of I
                 for j in 0..(D*N) { // for each possible value of d
-                    if d > D - 1 {
-                        self.matrices[index][i][j] = 0;
+                    if d > D as f64 - 1.0 {
+                        self.matrices[index][i][j] = 0.0;
                     } else {
                         // f1(d, 0) = P(k1=d / x1)
                         self.matrices[index][i][j] = probabilities[i][d];
@@ -56,13 +58,13 @@ impl Cache {
             // f_i = self.matrices[i]
             for i in 0..(D*N) {
                 for j in 0..(D*N) {
-                    self.matrices[index][i][j] = 0;
+                    self.matrices[index][i][j] = 0.0;
                 }
                 for j in 0..(D*N) {
                     for sum_index in 0..D {
                         self.matrices[index][i][j] +=
-                        probabilities[i][j] *
-                        fill_matrix(&mut self, index-1, probabilities, d, I+i);
+                            probabilities[i][j] *
+                            self.fill_matrix(index-1, probabilities, d, I + i as f64);
                     }
                 }
             }
