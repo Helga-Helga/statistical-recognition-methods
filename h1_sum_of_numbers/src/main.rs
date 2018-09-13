@@ -31,9 +31,7 @@ fn main() {
 
 
     for index in 0..N {
-        for d in 0..(D*N+1) {
-            cache.fill_matrix(index, probabilities, d as f64);
-        }
+        cache.fill_matrix(index, probabilities);
     }
 }
 
@@ -45,31 +43,30 @@ struct Cache {
 impl Cache {
     /*
     index: image number: from 0 to N
-    d:     value d = k1 + k2 + ... + k_N
     */
-    fn fill_matrix(&mut self, index: usize, probabilities: [[f64; D]; N], d: f64) {
+    fn fill_matrix(&mut self, index: usize, probabilities: [[f64; D]; N]) {
         // Fill the first row f1
         // f(0, d) = P(k0 = d | x0)
         // f(0, d) = self.matrix[0]
         if index == 0 {
-            for i in 0..(N*D+1) { // for each possible value of d
-                if d <= i as f64 && i < D {
-                    self.matrix[index][i] = probabilities[index][i];
+            for d in 0..(N*D+1) { // for each possible value of d
+                if d < D {
+                    self.matrix[index][d] = probabilities[index][d];
                 } else {
-                    self.matrix[index][i] = 0.0;
+                    self.matrix[index][d] = 0.0;
                 }
             }
         } else {
             /*
             Fill another rows: f1, f2, ..., f_{N-1}
-            f(index, d) = sum_{i=0}^N P(k_{index = i} | x_{index}) * f(index - 1, d - i)
+            f(index, d) = sum_{j=0}^N P(k_{index = j} | x_{index}) * f(index - 1, d - j)
             f(index, d) = self.matrix[index]
             */
             self.matrix[index] = [0.0; (N*D+1)];
-            for i in 0..(N*D+1) { // for each possible value of d
+            for d in 0..(N*D+1) { // for each possible value of d
                 for j in 0..N {
-                    if d >= j as f64 && j < N && index < D {
-                        self.matrix[index][i as usize] +=
+                    if d >= j as usize && index < D {
+                        self.matrix[index][d as usize] +=
                             probabilities[j][index] * self.matrix[index-1][d as usize - j];
                     }
                 }
