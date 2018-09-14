@@ -5,3 +5,4 @@ authors = ["helga-helga <13537448+Helga-Helga@users.noreply.github.com>"]
 
 [dependencies]
 rand="0.5.5"
+approx="0.3.0"

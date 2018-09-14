@@ -4,6 +4,8 @@ const N: usize = 20;
 const D: usize = 9;
 
 extern crate rand;
+#[macro_use]
+extern crate approx;
 use rand::Rng;
 
 fn main() {
@@ -41,9 +43,7 @@ struct Cache {
 }
 
 impl Cache {
-    /*
-    index: image number: from 0 to N
-    */
+    // index: image number: from 0 to N
     fn fill_matrix(&mut self, index: usize, probabilities: [[f64; D]; N]) {
         // Fill the first row f1
         // f(0, d) = P(k0 = d | x0)
@@ -59,18 +59,50 @@ impl Cache {
         } else {
             /*
             Fill another rows: f1, f2, ..., f_{N-1}
-            f(index, d) = sum_{j=0}^N P(k_{index = j} | x_{index}) * f(index - 1, d - j)
+            f(index, d) = sum_{j=0}^(N*D+1) P(k_{index = j} | x_{index}) * f(index - 1, d - j)
             f(index, d) = self.matrix[index]
             */
             self.matrix[index] = [0.0; (N*D+1)];
             for d in 0..(N*D+1) { // for each possible value of d
-                for j in 0..N {
-                    if d >= j as usize && index < D {
+                for j in 0..D {
+                    if d >= j as usize && index < N && j < N {
                         self.matrix[index][d as usize] +=
-                            probabilities[j][index] * self.matrix[index-1][d as usize - j];
+                            probabilities[index][j] * self.matrix[index-1][d as usize - j];
                     }
                 }
             }
+        }
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    // Importing names from outer (for mod tests) scope
+    use super::*;
+
+    #[test]
+    fn sum_of_probabilities_equals_one() {
+        // Test if sum of probabilities in each row of cache.matrix is equal to 1
+        let probabilities = [[0.1; D] ; N];
+
+        let mut cache = Cache {
+            matrix: [[0.0; (N*D+1)]; N],
+        };
+
+
+        for index in 0..N {
+            cache.fill_matrix(index, probabilities);
+            for d in 0..(N*D+1) {
+                print!("{} ", cache.matrix[index][d]);
+            }
+        }
+
+        let mut sums =  [0.0; N];
+        for i in 0..N {
+            for j in 0..(N*D+1) {
+                sums[i] += cache.matrix[i][j];
+            }
+            relative_eq!(sums[i], 1.0, epsilon=1E-9);
         }
     }
 }
