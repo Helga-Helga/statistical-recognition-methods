@@ -31,10 +31,19 @@ fn main() {
         matrix: [[0.0; (N*D+1)]; N],
     };
 
-
     for index in 0..N {
         cache.fill_matrix(index, probabilities);
     }
+
+    let mut max_probability = 0.0; // the most probable value of d
+    let mut max_index = 0; // index of the most probable value of d
+    for d in 0..(N*D+1) { // for each possible value of d when there are N images
+        if cache.matrix[N-1][d] > max_probability {
+            max_probability = cache.matrix[N-1][d];
+            max_index = d;
+        }
+    }
+    println!("The most probable sum is: {}", max_index);
 }
 
 struct Cache {
