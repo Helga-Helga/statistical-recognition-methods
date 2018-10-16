@@ -53,16 +53,6 @@ pub mod gibbs_sampler {
 
     fn fill_rows(noised_image: &Vec<Vec<u32>>, filled_columns: &Vec<u32>, epsilon: f64) ->
                             Vec<u32> {
-        // Count mismatched colors of pixels in each row
-        let mut mismatches_in_row = vec![0; ::HEIGHT];
-        for i in 0..::HEIGHT {
-            for j in 0..::WIDTH {
-                if noised_image[i][j] != filled_columns[j] {
-                    mismatches_in_row[i] += 1;
-                }
-            }
-        }
-
         let mut filled_rows = vec![0; ::HEIGHT];
         for i in 0..::HEIGHT {
             let mut prod1 = 1.;
@@ -85,16 +75,6 @@ pub mod gibbs_sampler {
 
     fn fill_columns(noised_image: &Vec<Vec<u32>>, filled_rows: &Vec<u32>, epsilon: f64) ->
                                 Vec<u32> {
-        // Count mismatched colors of pixels in each column
-        let mut mismatches_in_column = vec![0; ::WIDTH];
-        for i in 0..::HEIGHT {
-            for j in 0..::WIDTH {
-                if noised_image[i][j] != filled_rows[i] {
-                    mismatches_in_column[j] += 1;
-                }
-            }
-        }
-
         let mut filled_columns = vec![0; ::WIDTH];
         for j in 0..::WIDTH {
             let mut prod1 = 1.;
