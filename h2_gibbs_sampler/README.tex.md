@@ -78,8 +78,8 @@ $$p\left( k_i^h \, \middle| \, \vec{x}, \vec{k}^v\right) =
 >As lines were shaded independently,
 $$p \left( \vec{k}^v, k_i^h\right) =
 \frac{1}{2^{m+1}}$$
-Also, probability $p \left( \vec{x}, \vec{k}^v\right)$ is not dependent from $k_i^h$,
-so let's denote the fraction with this probabilities as $C_i$ With the use of low of total probability for $p \left( \vec{x}\, \middle| \, \vec{k}^v, k_i^h\right)$ we get
+>Also, probability $p \left( \vec{x}, \vec{k}^v\right)$ is not dependent from $k_i^h$, so let's denote the fraction with this probabilities as $C_i$
+>With the use of low of total probability for $p \left( \vec{x}\, \middle| \, \vec{k}^v, k_i^h\right)$ we get
 
 $$p\left( k_i^h \, \middle| \, \vec{x}, \vec{k}^v\right)=
 C_i \sum \limits_{k_1^h} \dotsc \sum \limits_{k_{i-1}^h}
@@ -151,7 +151,7 @@ $$p \left( k_i^h = 0 \, \middle| \, \vec{x}, \vec{k}^v \right) =
 
 $$p \left( k_i^h = 1 \, \middle| \, \vec{x}, \vec{k}^v \right) =
 \frac{P_2}{P_1 + P_2}$$
-The state of row $i$ will be $0$ or $1$,  depending on which probability is greater.
+The state of row i will be 0 or 1,  depending on which probability is greater.
 $$k_i^h =
 \begin{cases}
 1, if \, p \left( k_i^h = 1 \, \middle| \, \vec{x}, \vec{k}^v \right)  >
@@ -168,3 +168,4 @@ Our goal here is to find the most probable state of each column, i.e. to define 
 ## count_errors()
 Function takes two vectors and counts the number of mismatches between them
 (element by element).
+
