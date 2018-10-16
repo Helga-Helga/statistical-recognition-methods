@@ -2,21 +2,21 @@
 # The application of Gibbs sampler to the problem of horizontal and vertical lines
 
 ## The problem:
-- We have an image $\vec{x}$ of size $m \times n$,   where each pixel is white or black ($0$ or $1$)
-- $m$ is **WIDTH** and $n$ is **HEIGHT**
-- At the beginning all the pixels are white:   **image[i][j] = 0** for all **i** and all **j**
-- Each row is shaded (or filled) with $0.5$ probability:  each pixel in the horizontal line becomes black
-- $k_i^h$ is a state of row $i$
-	- if row $i$ is shaded, than $k_i^h = 1$ (**filled_row[i] = 1**)
-	- if row $i$ is not shaded, than $k_i^h = 0$ (**filled_row[i] = 0**)
-- Each column is shaded with $0.5$ probability:   each pixel in the column becomes black
-- $k_j^v$ is a state of column $j$
-	- if column $j$ is shaded, then $k_j^v = 1$ (**filled_column[j] = 1**)
-	- if row $i$ is not shaded, then $k_j^v = 0$ (**filled_column[j] = 0**)
-- Each pixel $\left( i, j\right)$ inverts its color   with probability that is equal to $\varepsilon$ ($\varepsilon$ is known),
+- We have an image http://latex.codecogs.com/svg.latex?%5Cvec%7Bx%7D of size http://latex.codecogs.com/svg.latex?m+%5Ctimes+n, where each pixel is white or black (0 or 1)
+- m is **WIDTH** and n is **HEIGHT**
+- At the beginning all the pixels are white: **image[i][j] = 0** for all **i** and all **j**
+- Each row is shaded (or filled) with 0.5 probability: each pixel in the horizontal line becomes black
+- http://latex.codecogs.com/svg.latex?k_i%5Eh is a state of row i
+	- if row i is shaded, than http://latex.codecogs.com/svg.latex?k_i%5Eh+%3D+1 (**filled_row[i] = 1**)
+	- if row i is not shaded, than http://latex.codecogs.com/svg.latex?k_i%5Eh+%3D+0 (**filled_row[i] = 0**)
+- Each column is shaded with 0.5 probability: each pixel in the column becomes black
+- http://latex.codecogs.com/svg.latex?k_j%5Ev is a state of column j
+	- if column j is shaded, then http://latex.codecogs.com/svg.latex?k_j%5Ev+%3D+1 (**filled_column[j] = 1**)
+	- if row i is not shaded, then http://latex.codecogs.com/svg.latex?k_j%5Ev+%3D+0 (**filled_column[j] = 0**)
+- Each pixel ( i, j) inverts its color with probability that is equal to http://latex.codecogs.com/svg.latex?%5Cvarepsilon (http://latex.codecogs.com/svg.latex?%5Cvarepsilon is known),
   so that we obtain a noised image.
 - The task is to find the most probable set of shaded rows and shaded columns
-  of initial image, when only noised image and $\varepsilon$ are known.
+  of initial image, when only noised image and http://latex.codecogs.com/svg.latex?%5Cvarepsilon are known.
 
 ## Used programming language
 The program was written on [Rust](https://en.wikipedia.org/wiki/Rust_(programming_language)).
@@ -25,8 +25,8 @@ You can find how to install Rust [here](https://doc.rust-lang.org/book/2018-edit
 
 To compile and run the project, type [cargo run](https://doc.rust-lang.org/book/2018-edition/ch01-03-hello-cargo.html) from the package folder in the terminal.
 
-> In this program the initial image and $\varepsilon$ are generated randomly.
-> In the output you can see the initial image, filled rows and columns (ground truth), the value of $\varepsilon$, noised image, recognized rows and columns that were filled and the output image.
+> In this program the initial image and http://latex.codecogs.com/svg.latex?%5Cvarepsilon are generated randomly.
+> In the output you can see the initial image, filled rows and columns (ground truth), the value of http://latex.codecogs.com/svg.latex?%5Cvarepsilon, noised image, recognized rows and columns that were filled and the output image.
 > Also the output contains the number of incorrectly recognized rows and columns.
 
 ## generate_input_image()
@@ -45,7 +45,7 @@ $$
 
 > $x\left(i,j \right)$ is a pixel of noised image
 
-That means that pixel changed color with $\varepsilon$ probability and didn't change color with $1 - \varepsilon$ probability.
+That means that pixel changed color with http://latex.codecogs.com/svg.latex?%5Cvarepsilon probability and didn't change color with $1 - \varepsilon$ probability.
 More compact version of the equation:
 $$p\left( x\left( i, j \right) \, \middle| \, k_i^h, k_j^v\right) =
 \frac{\varepsilon}{1 - \varepsilon}^{\left| x\left( i, j\right) - k_i^h \lor k_j^v \right|}
