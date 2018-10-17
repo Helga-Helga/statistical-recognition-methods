@@ -26,8 +26,13 @@ You can find how to install Rust [here](https://doc.rust-lang.org/book/2018-edit
 To compile and run the project, type [cargo run](https://doc.rust-lang.org/book/2018-edition/ch01-03-hello-cargo.html) from the package folder in the terminal.
 
 > In this program the initial image and $\varepsilon$ are generated randomly.
-> In the output you can see the initial image, filled rows and columns (ground truth), the value of $\varepsilon$, noised image, recognized rows and columns that were filled and the output image.
-> Also the output contains the number of incorrectly recognized rows and columns.
+> In the output you can see:
+> - the initial image
+> - filled rows and columns (ground truth)
+> - the value of $\varepsilon$
+> - noised image
+> - recognized rows and columns that were filled
+> - the number of incorrectly recognized rows and columns
 
 ## generate_input_image()
 At the beginning we shade each row and each column with $0.5$ probability and obtain a set of shaded rows (**filled_rows**) and a set of shaded columns (**filled_columns**).
@@ -170,4 +175,3 @@ Our goal here is to find the most probable state of each column, i.e. to define 
 ## count_errors()
 Function takes two vectors and counts the number of mismatches between them
 (element by element).
-
