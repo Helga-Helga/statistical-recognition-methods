@@ -20,7 +20,7 @@ pub mod input {
         }
         println!("Filled columns: {:?}", filled_columns);
         // Create image from filled rows and columns
-        let mut image = vec![vec![0u32; ::WIDTH]; ::HEIGHT];
+        let mut image = vec![vec![0; ::WIDTH]; ::HEIGHT];
         for i in 0..::HEIGHT {
             for j in 0..::WIDTH {
                 if filled_rows[i] == 1 || filled_columns[j] == 1 {

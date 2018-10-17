@@ -16,8 +16,8 @@ pub mod gibbs_sampler {
             filled_columns = fill_columns(&noised_image, &filled_rows, epsilon);
         }
         // Extract each 30 result
-        let mut filled_rows_result = vec![vec![0u32; ::HEIGHT]; 267];
-        let mut filled_columns_result = vec![vec![0u32; ::WIDTH]; 267];
+        let mut filled_rows_result = vec![vec![0; ::HEIGHT]; 267];
+        let mut filled_columns_result = vec![vec![0; ::WIDTH]; 267];
         for i in 0..8000 {
             filled_rows = fill_rows(&noised_image, &filled_columns, epsilon);
             filled_columns = fill_columns(&noised_image, &filled_rows, epsilon);
