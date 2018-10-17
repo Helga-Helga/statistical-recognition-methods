@@ -26,8 +26,13 @@ You can find how to install Rust [here](https://doc.rust-lang.org/book/2018-edit
 To compile and run the project, type [cargo run](https://doc.rust-lang.org/book/2018-edition/ch01-03-hello-cargo.html) from the package folder in the terminal.
 
 > In this program the initial image and <img src="/h2_gibbs_sampler/tex/9ae7733dac2b7b4470696ed36239b676.svg?invert_in_darkmode&sanitize=true" align=middle width=7.66550399999999pt height=14.15524440000002pt/> are generated randomly.
-> In the output you can see the initial image, filled rows and columns (ground truth), the value of <img src="/h2_gibbs_sampler/tex/9ae7733dac2b7b4470696ed36239b676.svg?invert_in_darkmode&sanitize=true" align=middle width=7.66550399999999pt height=14.15524440000002pt/>, noised image, recognized rows and columns that were filled and the output image.
-> Also the output contains the number of incorrectly recognized rows and columns.
+> In the output you can see:
+> - the initial image
+> - filled rows and columns (ground truth)
+> - the value of <img src="/h2_gibbs_sampler/tex/9ae7733dac2b7b4470696ed36239b676.svg?invert_in_darkmode&sanitize=true" align=middle width=7.66550399999999pt height=14.15524440000002pt/>
+> - noised image
+> - recognized rows and columns that were filled
+> - the number of incorrectly recognized rows and columns
 
 ## generate_input_image()
 At the beginning we shade each row and each column with <img src="/h2_gibbs_sampler/tex/cde2d598001a947a6afd044a43d15629.svg?invert_in_darkmode&sanitize=true" align=middle width=21.00464354999999pt height=21.18721440000001pt/> probability and obtain a set of shaded rows (**filled_rows**) and a set of shaded columns (**filled_columns**).
