@@ -4,8 +4,8 @@ pub mod gibbs_sampler {
 
     pub fn gibbs_sampler(noised_image: Vec<Vec<u32>>, epsilon: f64) -> (Vec<u32>, Vec<u32>){
         // Generate filled columns
-        let mut filled_rows = vec![0; ::HEIGHT];
-        let mut filled_columns = vec![0; ::WIDTH];
+        let mut filled_rows = vec![0u32; ::HEIGHT];
+        let mut filled_columns = vec![0u32; ::WIDTH];
         for j in 0..::WIDTH {
             if rand::thread_rng().gen_range(0., 1.) > 0.5 {
                 filled_columns[j] = 1;
@@ -16,8 +16,8 @@ pub mod gibbs_sampler {
             filled_columns = fill_columns(&noised_image, &filled_rows, epsilon);
         }
         // Extract each 30 result
-        let mut filled_rows_result = vec![vec![0; ::HEIGHT]; 267];
-        let mut filled_columns_result = vec![vec![0; ::WIDTH]; 267];
+        let mut filled_rows_result = vec![vec![0u32; ::HEIGHT]; 267];
+        let mut filled_columns_result = vec![vec![0u32; ::WIDTH]; 267];
         for i in 0..8000 {
             filled_rows = fill_rows(&noised_image, &filled_columns, epsilon);
             filled_columns = fill_columns(&noised_image, &filled_rows, epsilon);
@@ -27,8 +27,8 @@ pub mod gibbs_sampler {
             }
         }
         // Count frequencies of filling lines
-        let mut recognized_rows = vec![0; ::HEIGHT];
-        let mut recognized_columns = vec![0; ::WIDTH];
+        let mut recognized_rows = vec![0u32; ::HEIGHT];
+        let mut recognized_columns = vec![0u32; ::WIDTH];
         for i in 0..::HEIGHT {
             for j in 0..267 {
                 if filled_rows_result[j][i] == 1 {
@@ -53,7 +53,7 @@ pub mod gibbs_sampler {
 
     fn fill_rows(noised_image: &Vec<Vec<u32>>, filled_columns: &Vec<u32>, epsilon: f64) ->
                             Vec<u32> {
-        let mut filled_rows = vec![0; ::HEIGHT];
+        let mut filled_rows = vec![0u32; ::HEIGHT];
         for i in 0..::HEIGHT {
             let mut prod1 = 1.;
             let mut prod2 = 1.;
@@ -75,7 +75,7 @@ pub mod gibbs_sampler {
 
     fn fill_columns(noised_image: &Vec<Vec<u32>>, filled_rows: &Vec<u32>, epsilon: f64) ->
                                 Vec<u32> {
-        let mut filled_columns = vec![0; ::WIDTH];
+        let mut filled_columns = vec![0u32; ::WIDTH];
         for j in 0..::WIDTH {
             let mut prod1 = 1.;
             let mut prod2 = 1.;

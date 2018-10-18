@@ -3,7 +3,7 @@ pub mod noise {
     use rand::Rng;
 
     pub fn noise_image(image: Vec<Vec<u32>>, epsilon: f64) -> Vec<Vec<u32>> {
-        let mut noised_image = vec![vec![0; ::WIDTH]; ::HEIGHT];
+        let mut noised_image = vec![vec![0u32; ::WIDTH]; ::HEIGHT];
         for i in 0..::HEIGHT {
             for j in 0..::WIDTH {
                 if rand::thread_rng().gen_range(0., 1.) < epsilon {
