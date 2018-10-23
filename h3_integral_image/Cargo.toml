@@ -1,0 +1,6 @@
+[package]
+name = "h3_integral_image"
+version = "0.1.0"
+authors = ["helga-helga <13537448+Helga-Helga@users.noreply.github.com>"]
+
+[dependencies]
