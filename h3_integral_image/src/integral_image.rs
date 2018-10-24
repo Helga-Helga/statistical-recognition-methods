@@ -55,7 +55,7 @@
          let image_height = integral_image.len();
          let image_width = integral_image[0].len();
          let mut result: u16 = 0;
-         if y + height - 1< image_height && x + width - 1 < image_width {
+         if y + height - 1 < image_height && x + width - 1 < image_width {
              result += integral_image[y + height - 1][x + width - 1];
          }
          if y + height - 1 < image_height && x > 0 {
