@@ -42,9 +42,9 @@ Gives two-dimensional array (input matrix) and a set of rectangular windows.
 Takes two-dimensional array (input matrix) and gives its integral image.
 
 The algorithm is presented in the image:
-<p align="center">
-    ![Integral image computing](images/integral_image_computing.png)
-</p>
+
+![Integral image computing](images/integral_image_computing.png)
+
 To find a sum of filled rectangle (`integral_image[i][j]`) we should add
 - red part (`integral_image[i - 1][j]`)
 - green part (`sum_in_lines[i][j - 1]`)
@@ -57,9 +57,9 @@ Gives a sum of a rectangular area
 by given its left top corner `x, y` and size: `width` and `height`.
 
 The algorithm is presented in the image:
-<p align="center">
-    ![Sum in the window](images/sum_in_window.jpg)
-</p>
+
+![Sum in the window](images/sum_in_window.jpg)
+
 Sum in the window is a red block (image A) --
 we search it (`result`).
 It is equal to
