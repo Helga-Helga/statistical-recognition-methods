@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
  pub mod integral_image {
-     pub fn integral_image_computing(image: Vec<Vec<u8>>) -> Vec<Vec<u16>> {
+     pub fn integral_image_computing(image: &Vec<Vec<u8>>) -> Vec<Vec<u16>> {
          let height: usize = image.len();
          let width: usize = image[0].len();
          let mut integral_image = vec![vec![0u16; width]; height];
@@ -55,6 +55,9 @@
          let image_height = integral_image.len();
          let image_width = integral_image[0].len();
          let mut result: u16 = 0;
+         if width == 0 || height == 0 {
+             return 0;
+         }
          if y + height - 1 < image_height && x + width - 1 < image_width {
              result += integral_image[y + height - 1][x + width - 1];
          }
@@ -67,7 +70,18 @@
          if y > 0 && x > 0 {
              result += integral_image[y - 1][x - 1];
          }
-        println!("Result: {}", result);
-         result
+         println!("Result: {}", result);
+         return result
+     }
+
+     #[test]
+     fn tets_window_sum() {
+         let image = [[4, 25, 235, 74, 245, 34].to_vec(),
+                      [45, 54, 43, 2, 4, 64].to_vec(),
+                      [32, 23, 243, 2, 4, 23].to_vec(),
+                      [13, 124, 251, 143, 23, 53].to_vec()].to_vec();
+         assert_eq!(128, window_sum(&integral_image_computing(&image), [0, 0, 2, 2].to_vec()));
+         assert_eq!(666, window_sum(&integral_image_computing(&image), [2, 2, 3, 2].to_vec()));
+         assert_eq!(0, window_sum(&integral_image_computing(&image), [0, 0, 0, 0].to_vec()));
      }
  }

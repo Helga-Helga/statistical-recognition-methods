@@ -29,7 +29,7 @@ mod integral_image;
 
 fn main() -> std::io::Result<()> {
     let (image, windows) = file_reader::file_reader::file_reader("./input.txt".to_string());
-    let integral_image = integral_image::integral_image::integral_image_computing(image);
+    let integral_image = integral_image::integral_image::integral_image_computing(&image);
     let mut results = Vec::new();
     for window in windows {
         let result = integral_image::integral_image::window_sum(&integral_image, window);
