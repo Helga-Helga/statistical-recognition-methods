@@ -14,25 +14,22 @@ not bigger than 16x16 for O(1) based on computed integral image.
 - array (`image`)
 - a set of rectangular `windows` (left upper corner (`x`, `y`), `width`, `height`)
 Sums should be computed for all of the given windows.
-> 6 4
-
-> 4 25 235 74 245 34
-
-> 45 54 43 2 4 64
-
-> 32 23 243 2 4 23
-
-> 13 124 251 143 23 53
-
-> 0 0 2 2
-
-> 2 2 3 2
+```
+6 4
+4 25 235 74 245 34
+45 54 43 2 4 64
+32 23 243 2 4 23
+13 124 251 143 23 53
+0 0 2 2
+2 2 3 2
+```
 
 ## Correspondent output data (`out.txt` file)
 Contains the values of sum for given rectangular areas:
-> 128
-
-> 666
+```
+128
+666
+```
 
 ## Used programming language
 The program was written on [Rust](https://en.wikipedia.org/wiki/Rust_(programming_language)).
