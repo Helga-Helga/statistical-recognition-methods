@@ -34,7 +34,7 @@ You can find how to install Rust [here](https://doc.rust-lang.org/book/2018-edit
 
 To compile and run the project, type [cargo run](https://doc.rust-lang.org/book/2018-edition/ch01-03-hello-cargo.html) from the package folder in the terminal.
 
-To run tests use [cargo test][https://doc.rust-lang.org/cargo/guide/tests.html].
+To run tests use [cargo test](https://doc.rust-lang.org/cargo/guide/tests.html).
 
 ## file_reader()
 Reads input file described above.
