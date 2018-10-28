@@ -1,4 +1,4 @@
-# Computing of integral noise_image
+# Computing of integral image
 
 ## Task:
 Write a program, that takes a two-dimensional array of `unsigned char`
