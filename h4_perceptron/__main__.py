@@ -19,40 +19,51 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-
 import matplotlib.pyplot as plt
+from matplotlib.animation import FuncAnimation
+import perceptron
 from sys import stdout
+from numpy import linspace, zeros
 
 fig = plt.figure()
 ax = fig.add_subplot(111)
-ax.set_xlim([-10, 10])
-ax.set_ylim([-10, 10])
+ax.set_xlim([-1, 1])
+ax.set_ylim([-1, 1])
 
-dots1 = []
-dots2 = []
+inside = []
+outside = []
+a = zeros(6)
+
+def add_point(x, y, marker, array):
+    ax.plot(x, y, marker)
+    array.append([x, y])
 
 def on_click(event):
     print('button=%d, x=%d, y=%d, xdata=%f, ydata=%f' %
           (event.button, event.x, event.y, event.xdata, event.ydata))
     if event.button == 1:
-        plt.plot(event.xdata, event.ydata, 'bo')
-        dots1.append([event.xdata, event.ydata])
-    else:
-        plt.plot(event.xdata, event.ydata, 'rx')
-        dots2.append([event.xdata, event.ydata])
-    fig.canvas.draw()
+        add_point(event.xdata, event.ydata, 'bo', inside)
+    if event.button == 3:
+        add_point(event.xdata, event.ydata, 'ro', outside)
 
-def on_press(event):
-    print('key=%s' % event.key)
-    stdout.flush()
-    if event.key == 'c':
-        plt.clf()
-        fig.canvas.mpl_disconnect(on_click)
-        fig.canvas.mpl_disconnect(on_press)
-        wait_time = input("How long are you willing to wait? Enter the number of minutes...")
+def animate(i):
+    ax.clear()
+    for x, y in inside:
+        ax.plot(x, y, 'bo')
+    for x, y in outside:
+        ax.plot(x, y, 'ro')
+    global a
+    a = perceptron.train_on_dots(inside, outside, a)
+    a = perceptron.train_on_eig(a)
+    x = linspace(-1, 1, 100)
+    y = linspace(-1, 1, 100)
+    z = zeros((100, 100), dtype=float)
+    for i in range(100):
+        for j in range(100):
+            z[j, i] = a.dot(perceptron.get_vector_in_new_space(x[i], y[j]))
+    ax.contour(x, y, z, levels=[0])
 
 
 cid_click = fig.canvas.mpl_connect('button_press_event', on_click)
-cid_press = fig.canvas.mpl_connect('key_press_event', on_press)
-
+anim = FuncAnimation(fig, animate, interval=50)
 plt.show()
