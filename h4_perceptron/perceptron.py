@@ -25,6 +25,12 @@ from math import degrees, acos
 from matplotlib.patches import Ellipse
 
 def train_on_dots(inside, outside, a=None):
+    """
+    inside: a set of points that should be inside an ellipse
+    outside: a set of points that should be outside an ellipse
+    a: a vector of parameters,
+    that is updated in a program with perceptron algorithm
+    """
     if a is None:
         a = zeros(6)
     for x, y in inside:
@@ -38,6 +44,13 @@ def train_on_dots(inside, outside, a=None):
     return a
 
 def train_on_eig(a):
+    """
+    a: a vector of parameters,
+    that is updated in a program with perceptron algorithm
+    If negative eigenvalue was found,
+    coresponding eigenvector is added to a parameter vector `a`
+    Such corrections are done while matrix is not positive definite
+    """
     matrix = get_matrix(a)
     while not is_positive_definite(matrix):
         vector = get_wrong_eigvector(matrix)
@@ -47,14 +60,28 @@ def train_on_eig(a):
     return a
 
 def get_vector_in_new_space(x, y, not_eigen=1):
+    """
+    (x, y): point coordinate
+    not_eigen: `True` if we need to construct a vector in new space for eigenvector,
+    `False` if we need to construct a vector in new space for a point
+    """
     return array([x**2, y**2, x * not_eigen, y * not_eigen, x * y, 1 * not_eigen])
 
 def is_positive_definite(matrix):
+    """
+    Checks if `matrix` is positive definite (if all its eigenvalues are positive)
+    """
     return (eigvals(matrix) > 0).all()
 
 def get_wrong_eigvector(matrix):
+    """
+    Returns an eigenvector that corresponds to non-positive eigenvalue
+    """
     v, w = eig(matrix)
     return w[:, v <= 0][:, 0].tolist()
 
 def get_matrix(a):
+    """
+    Constructs a matrix from a vector of parameters
+    """
     return array([[a[0], a[4] / 2.], [a[4] / 2., a[1]]])

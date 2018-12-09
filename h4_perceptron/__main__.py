@@ -35,10 +35,21 @@ outside = []
 a = zeros(6)
 
 def add_point(x, y, marker, array):
+    """
+    (x, y): point coordinate
+    marker: consists of color and point shape
+    array: inside or outside array, where to append point
+    Draws a point and appends it to array
+    """
     ax.plot(x, y, marker)
     array.append([x, y])
 
 def on_click(event):
+    """
+    event: pressing mouse button
+    If right button was pressed, a point is added to `inside` array
+    If left button was pressed, a point is added to `outside` array
+    """
     print('button=%d, x=%d, y=%d, xdata=%f, ydata=%f' %
           (event.button, event.x, event.y, event.xdata, event.ydata))
     if event.button == 1:
@@ -47,6 +58,12 @@ def on_click(event):
         add_point(event.xdata, event.ydata, 'ro', outside)
 
 def animate(i):
+    """
+    Is called each `interval` milliseconds
+    Redraws all points and updated ellipse
+    Trains perseptron on points and eigenvectors
+    Ellispe is drawn as a zero contour line (where `a.dot(x) = 0`)
+    """
     ax.clear()
     for x, y in inside:
         ax.plot(x, y, 'bo')
