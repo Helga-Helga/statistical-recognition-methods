@@ -12,7 +12,7 @@ just wait some time and it will come in sight again.
 If points are not separated by any ellipse,
 then you will see endless attempts to separate points with ellipse.
 
-An example of algorithm word is presented in the image:
+An example of algorithm work is presented in the image:
 
 ![Integral image computing](images/example.png)
 
@@ -103,4 +103,7 @@ New vectors:
 -2a_{ii} \cdot v_i - a_{ij} \cdot v_j - a_{ik} \cdot v_k, \, \left(\forall i=\overline{1,n}, \, \forall j=\overline{1,n}, \forall k=\overline{1,n}, \, i\ne k, \, j < k \right )\\
 \sum \limits_{i = 1}^n a_{ii} \cdot v_i^2 + \sum \limits_{i = 1}^n \sum \limits_{j = 1, j > i}^n p_{ij} \cdot v_i \cdot v_j - 1) -->
 
-These new vectors are used in perceptron algorithms.
+These new vectors are used in perceptron algorithms:
+new dot product ![New dot product](images/dot.png)
+<!-- \tilde{\alpha}\cdot \tilde{x} -->
+is compared to zero for both sets and corresponding corrections are done.
