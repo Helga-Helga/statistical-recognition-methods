@@ -12,6 +12,10 @@ just wait some time and it will come in sight again.
 If points are not separated by any ellipse,
 then you will see endless attempts to separate points with ellipse.
 
+An example of algorithm word is presented in the image:
+
+![Integral image computing](images/example.jpeg)
+
 ## Perceptron algorithm
 Perceptron algorithm solves the next problem:
 there are 2 point sets: ![Ellipsoid equation](images/sets.png).
@@ -84,7 +88,7 @@ x_2 - v_2
 
 After multiplication and brace expansion we obtain new vectors:
 
-![Full equation in 2d](images/new_vectors.png)
+![New vectors for 2D](images/new_vectors.png)
 <!-- \tilde{x} = \left(x_1^2, \, x_2^2, \, x_1, \, x_2, \, x_1 \cdot x_2, \, 1 \right )\\
 \tilde{\alpha} = (a_{11}, \, a_{22}, -2v_1 \cdot a_{11} - c_2 \cdot a_{12},
 -2v_2\cdot a_{22} - v_1 \cdot a_{12},\\
@@ -93,8 +97,10 @@ v_1^2 \cdot a_{11} + v_2^2 \cdot a_{22} + v_1 \cdot v_2 \cdot a_{12} - 1 ) -->
 ## Vectors in new space for a general case
 New vectors:
 
-![Full equation in 2d](images/new_vectors_general.png)
-<!-- \tilde{x} = \left(x_i^2, x_i \cdot x_j, x_i, 1 \right ) \\
-\tilde{\alpha} = \left(a_{ii}, a_{ij}, -2a_{ii} \cdot v_i - a_{ij} \cdot v_j - a_{ik} \cdot v_k, \sum \limits_{i = 1}^n a_{ii} \cdot v_i^2 + \sum \limits_{i = 1}^n \sum \limits_{j = 1, j > i}^n p_{ij} \cdot v_i \cdot v_j - 1\right ) -->
+![New vectors for general case](images/new_vectors_general.png)
+<!-- \tilde{x} = \left(x_i \cdot x_j, x_i, 1 \right ), \, \forall \, 1 \le i\le j \le n \\
+\tilde{\alpha} = (a_{ij} \,\left(\forall \, 1 \le i\le j \le n\right)\\
+-2a_{ii} \cdot v_i - a_{ij} \cdot v_j - a_{ik} \cdot v_k, \, \left(\forall i=\overline{1,n}, \, \forall j=\overline{1,n}, \forall k=\overline{1,n}, \, i\ne k, \, j < k \right )\\
+\sum \limits_{i = 1}^n a_{ii} \cdot v_i^2 + \sum \limits_{i = 1}^n \sum \limits_{j = 1, j > i}^n p_{ij} \cdot v_i \cdot v_j - 1) -->
 
 These new vectors are used in perceptron algorithms.
