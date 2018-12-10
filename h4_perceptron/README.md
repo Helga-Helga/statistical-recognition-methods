@@ -14,7 +14,7 @@ then you will see endless attempts to separate points with ellipse.
 
 An example of algorithm word is presented in the image:
 
-![Integral image computing](images/example.jpeg)
+![Integral image computing](images/example.png)
 
 ## Perceptron algorithm
 Perceptron algorithm solves the next problem:
