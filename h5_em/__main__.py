@@ -1,0 +1,54 @@
+# MIT License
+#
+# Copyright (c) 2018 Olga Laviagina
+#
+# Permission is hereby granted, free of charge, to any person obtaining a copy
+# of this software and associated documentation files (the "Software"), to deal
+# in the Software without restriction, including without limitation the rights
+# to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+# copies of the Software, and to permit persons to whom the Software is
+# furnished to do so, subject to the following conditions:
+#
+# The above copyright notice and this permission notice shall be included in all
+# copies or substantial portions of the Software.
+#
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+# LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+# SOFTWARE.
+from matplotlib import pyplot
+from matplotlib.animation import FuncAnimation
+from numpy import random, linspace, zeros_like, array
+from em import gaussian, get_groups, em_step
+
+fig = pyplot.figure()
+ax = fig.add_subplot(111)
+
+mu = array([-1, -2])
+sigma = array([1, 1])
+group1 = [random.normal(mu[0], sigma[0]) for _ in range(random.randint(10, 100))]
+group2 = [random.normal(mu[1], sigma[1]) for _ in range(random.randint(10, 100))]
+
+points = group1 + group2
+alphas = [random.rand(len(points))]
+alphas.append(1 - alphas[0])
+q = array([random.random(), random.random()])
+
+bins = linspace(-10, 10, 100)
+
+def animate(i):
+    ax.clear()
+    global alphas, q, mu, sigma
+    alphas, q, mu, sigma = em_step(points, alphas, q, mu, sigma)
+    group1, group2 = get_groups(points, alphas)
+    pyplot.hist(group1, bins, alpha=0.3, label='class1', color='b')
+    pyplot.hist(group2, bins, alpha=0.3, label='class2', color='g')
+
+    pyplot.plot(group1, zeros_like(group1) + 1, color='b', marker='|', markersize=20, alpha=0.5)
+    pyplot.plot(group2, zeros_like(group2) + .25, color='g', marker='|', markersize=20, alpha=0.5)
+
+anim = FuncAnimation(fig, animate, interval=1)
+pyplot.show()
