@@ -40,25 +40,25 @@ def update_alphas(q, points, mu, sigma, alphas):
         alphas[1][i] = q[1] * f1 / (q[0] * f0 + q[1] * f1)
     return alphas
 
-def update_q(alphas, q):
-    new_q = array([0., 0.])
-    new_q[0] = sum(alphas[0]) / len(alphas[0])
-    new_q[1] = sum(alphas[1]) / len(alphas[1])
+def update_q(alphas):
+    q = array([0., 0.])
+    q[0] = sum(alphas[0]) / len(alphas[0])
+    q[1] = sum(alphas[1]) / len(alphas[1])
     return q
 
-def update_mu_sigma(alphas, points, mu, sigma):
-    new_mu = array([0., 0.])
-    new_sigma = array([0., 0.])
-    new_mu[0] = sum(alphas[0] * points) / sum(alphas[0])
-    new_mu[1] = sum(alphas[1] * points) / sum(alphas[1])
-    new_sigma[0] = sum(alphas[0] * (points - new_mu[0])**2) / sum(alphas[0])
-    new_sigma[1] = sum(alphas[1] * (points - new_mu[1])**2) / sum(alphas[1])
+def update_mu_sigma(alphas, points):
+    mu = array([0., 0.])
+    sigma = array([0., 0.])
+    mu[0] = sum(alphas[0] * points) / sum(alphas[0])
+    mu[1] = sum(alphas[1] * points) / sum(alphas[1])
+    sigma[0] = sum(alphas[0] * (points - mu[0])**2) / sum(alphas[0])
+    sigma[1] = sum(alphas[1] * (points - mu[1])**2) / sum(alphas[1])
     return mu, sigma
 
-def em_step(points, alphas, q, mu, sigma):
+def em_step(points, alphas):
+    q = update_q(alphas)
+    mu, sigma = update_mu_sigma(alphas, points)
     alphas = update_alphas(q, points, mu, sigma, alphas)
-    q = update_q(alphas, q)
-    mu, sigma = update_mu_sigma(alphas, points, mu, sigma)
     return alphas, q, mu, sigma
 
 def likelihood_k(q, points, mu, sigma):

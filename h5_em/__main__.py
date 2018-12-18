@@ -35,7 +35,6 @@ group2 = (random.randn(random.randint(10, 100)) * (1 + 10 * random.rand() ** 2) 
 points = group1 + group2
 alphas = [random.rand(len(points))]
 alphas.append(1 - alphas[0])
-q = array([random.random(), random.random()])
 
 bins = linspace(-10, 10, 100)
 colors = zeros((len(points), 3), dtype="float64")
@@ -43,12 +42,11 @@ colors[:, 0] = alphas[0]
 colors[:, 2] = alphas[1]
 pyplot.hist(points, bins, alpha=0.3)
 pyplot.scatter(points, zeros_like(points) + 0.25, c=colors, marker='|', alpha=0.75, s=200)
-likelihood_k(q, points, mu, sigma)
 
 def animate(i):
     ax.clear()
     global alphas, q, mu, sigma
-    alphas, q, mu, sigma = em_step(points, alphas, q, mu, sigma)
+    alphas, q, mu, sigma = em_step(points, alphas)
     colors[:, 0] = alphas[0]
     colors[:, 2] = alphas[1]
     pyplot.hist(points, bins, alpha=0.3)
