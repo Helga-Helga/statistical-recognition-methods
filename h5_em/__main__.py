@@ -53,5 +53,5 @@ def animate(i):
     pyplot.scatter(points, zeros_like(points) + 0.25, c=colors, marker='|', alpha=0.75, s=200)
     likelihood_k(q, points, mu, sigma)
 
-anim = FuncAnimation(fig, animate, interval=2000)
+anim = FuncAnimation(fig, animate, interval=200)
 pyplot.show()
