@@ -21,34 +21,38 @@
 # SOFTWARE.
 from matplotlib import pyplot
 from matplotlib.animation import FuncAnimation
-from numpy import random, linspace, zeros_like, array
-from em import gaussian, get_groups, em_step
+from numpy import random, linspace, zeros_like, array, zeros
+from em import gaussian, get_groups, em_step, likelihood_k
 
 fig = pyplot.figure()
 ax = fig.add_subplot(111)
 
-mu = array([-1, -2])
+mu = array([-1, 1])
 sigma = array([1, 1])
-group1 = [random.normal(mu[0], sigma[0]) for _ in range(random.randint(10, 100))]
-group2 = [random.normal(mu[1], sigma[1]) for _ in range(random.randint(10, 100))]
-
+group1 = [random.normal(random.rand() * 10, random.rand()**2) for _ in range(random.randint(10, 100))]
+group2 = [random.normal(random.rand() * 10, random.rand()**2) for _ in range(random.randint(10, 100))]
 points = group1 + group2
 alphas = [random.rand(len(points))]
 alphas.append(1 - alphas[0])
 q = array([random.random(), random.random()])
 
 bins = linspace(-10, 10, 100)
+colors = zeros((len(points), 3), dtype="float64")
+colors[:, 0] = alphas[0]
+colors[:, 2] = alphas[1]
+pyplot.hist(points, bins, alpha=0.3)
+pyplot.scatter(points, zeros_like(points) + 0.25, c=colors, marker='|', alpha=0.75, s=200)
+likelihood_k(q, points, mu, sigma)
 
 def animate(i):
     ax.clear()
     global alphas, q, mu, sigma
     alphas, q, mu, sigma = em_step(points, alphas, q, mu, sigma)
-    group1, group2 = get_groups(points, alphas)
-    pyplot.hist(group1, bins, alpha=0.3, label='class1', color='b')
-    pyplot.hist(group2, bins, alpha=0.3, label='class2', color='g')
+    colors[:, 0] = alphas[0]
+    colors[:, 2] = alphas[1]
+    pyplot.hist(points, bins, alpha=0.3)
+    pyplot.scatter(points, zeros_like(points) + 0.25, c=colors, marker='|', alpha=0.75, s=200)
+    likelihood_k(q, points, mu, sigma)
 
-    pyplot.plot(group1, zeros_like(group1) + 1, color='b', marker='|', markersize=20, alpha=0.5)
-    pyplot.plot(group2, zeros_like(group2) + .25, color='g', marker='|', markersize=20, alpha=0.5)
-
-anim = FuncAnimation(fig, animate, interval=1)
+anim = FuncAnimation(fig, animate, interval=2000)
 pyplot.show()

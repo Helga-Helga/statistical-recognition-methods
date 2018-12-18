@@ -19,11 +19,11 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-from numpy import sqrt, pi, exp, zeros, array
+from numpy import sqrt, pi, exp, zeros, array, log
 from itertools import compress
 
 def gaussian(x, mu, sigma):
-    return 1. / (sigma * sqrt(2 * pi)) * exp( -(x - mu)**2 / (2 * sigma**2))
+    return 1. / (sqrt(2 * pi * sigma)) * exp( -(x - mu)**2 / (2 * sigma))
 
 def get_groups(points, alphas):
     mask = [alphas[0][i] >= alphas[1][i] for i in range(len(alphas[0]))]
@@ -33,25 +33,18 @@ def get_groups(points, alphas):
     return group1, group2
 
 def update_alphas(q, points, mu, sigma, alphas):
-    new_alphas = zeros(shape=(2, len(points)), dtype=float)
     for i in range(len(points)):
         f0 = gaussian(points[i], mu[0], sigma[0])
         f1 = gaussian(points[i], mu[1], sigma[1])
-        new_alphas[0][i] = q[0] * f0 / float((q[0] * f1 + q[1] * f1))
-        new_alphas[1][i] = q[1] * f1 / float((q[0] * f0 + q[1] * f1))
-        if new_alphas[0][i] < 10E-6:
-            new_alphas[0][i] = alphas[0][i]
-        if new_alphas[1][i] < 10E-6:
-            new_alphas[1][i] = alphas[1][i]
-    return new_alphas
+        alphas[0][i] = q[0] * f0 / (q[0] * f0 + q[1] * f1)
+        alphas[1][i] = q[1] * f1 / (q[0] * f0 + q[1] * f1)
+    return alphas
 
 def update_q(alphas, q):
     new_q = array([0., 0.])
     new_q[0] = sum(alphas[0]) / len(alphas[0])
     new_q[1] = sum(alphas[1]) / len(alphas[1])
-    if all(new_q < 10E-6):
-        return q
-    return new_q
+    return q
 
 def update_mu_sigma(alphas, points, mu, sigma):
     new_mu = array([0., 0.])
@@ -60,10 +53,6 @@ def update_mu_sigma(alphas, points, mu, sigma):
     new_mu[1] = sum(alphas[1] * points) / sum(alphas[1])
     new_sigma[0] = sum(alphas[0] * (points - new_mu[0])**2) / sum(alphas[0])
     new_sigma[1] = sum(alphas[1] * (points - new_mu[1])**2) / sum(alphas[1])
-    if all(new_mu < 10E-6):
-        mu = new_mu
-    if all(new_sigma < 10E-6):
-        sigma = new_sigma
     return mu, sigma
 
 def em_step(points, alphas, q, mu, sigma):
@@ -71,3 +60,10 @@ def em_step(points, alphas, q, mu, sigma):
     q = update_q(alphas, q)
     mu, sigma = update_mu_sigma(alphas, points, mu, sigma)
     return alphas, q, mu, sigma
+
+def likelihood_k(q, points, mu, sigma):
+    res = 0
+    for i in range(len(points)):
+        res += log(q[0] * gaussian(points[i], mu[0], sigma[0]) +
+            q[1] * gaussian(points[i], mu[1], sigma[1]))
+    print('0 class: {}'.format(res))
