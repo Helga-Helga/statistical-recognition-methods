@@ -27,10 +27,11 @@ from em import gaussian, get_groups, em_step, likelihood_k
 fig = pyplot.figure()
 ax = fig.add_subplot(111)
 
-mu = array([-1, 1])
-sigma = array([1, 1])
-group1 = [random.normal(random.rand() * 10, random.rand()**2) for _ in range(random.randint(10, 100))]
-group2 = [random.normal(random.rand() * 10, random.rand()**2) for _ in range(random.randint(10, 100))]
+group1 = (random.randn(random.randint(10, 100)) * (1 + 10 * random.rand() ** 2) +
+    random.rand() * 10).tolist()
+group2 = (random.randn(random.randint(10, 100)) * (1 + 10 * random.rand() ** 2) +
+    random.rand() * 10).tolist()
+
 points = group1 + group2
 alphas = [random.rand(len(points))]
 alphas.append(1 - alphas[0])
