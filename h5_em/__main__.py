@@ -36,7 +36,7 @@ points = group1 + group2
 alphas = [random.rand(len(points))]
 alphas.append(1 - alphas[0])
 
-bins = linspace(-10, 10, 100)
+bins = linspace(-30, 30, 100)
 colors = zeros((len(points), 3), dtype="float64")
 colors[:, 0] = alphas[0]
 colors[:, 2] = alphas[1]
