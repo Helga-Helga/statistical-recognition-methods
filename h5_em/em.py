@@ -66,4 +66,4 @@ def likelihood_k(q, points, mu, sigma):
     for i in range(len(points)):
         res += log(q[0] * gaussian(points[i], mu[0], sigma[0]) +
             q[1] * gaussian(points[i], mu[1], sigma[1]))
-    print('0 class: {}'.format(res))
+    print('Likelihood: {}'.format(res))
