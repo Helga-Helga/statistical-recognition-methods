@@ -44,7 +44,7 @@ Generate random probabilities for each point to belong to each class:
 alphas = [random.rand(len(points))]
 alphas.append(1 - alphas[0])
 
-bins = linspace(-30, 30, 100)
+bins = linspace(-40, 40, 100)
 """
 For each point `colors` contains a list with length 3, where
 the first element is a probability that this point belongs to the first class (red channel),
