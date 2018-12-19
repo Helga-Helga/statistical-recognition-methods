@@ -22,7 +22,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """
 from numpy import sqrt, pi, exp, zeros, array, log
-from itertools import compress
 
 def gaussian(x, mu, sigma):
     """
