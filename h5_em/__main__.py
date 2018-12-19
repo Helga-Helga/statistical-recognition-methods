@@ -22,7 +22,7 @@
 from matplotlib import pyplot
 from matplotlib.animation import FuncAnimation
 from numpy import random, linspace, zeros_like, array, zeros
-from em import gaussian, em_step, likelihood_k
+from em import gaussian, em_step, likelihood
 
 fig = pyplot.figure()
 ax = fig.add_subplot(111)
@@ -51,7 +51,7 @@ def animate(i):
     colors[:, 2] = alphas[1]
     pyplot.hist(points, bins, alpha=0.3)
     pyplot.scatter(points, zeros_like(points) + 0.25, c=colors, marker='|', alpha=0.75, s=200)
-    likelihood_k(q, points, mu, sigma)
+    likelihood(q, points, mu, sigma)
 
 anim = FuncAnimation(fig, animate, interval=200)
 pyplot.show()

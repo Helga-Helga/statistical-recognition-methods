@@ -54,7 +54,7 @@ def em_step(points, alphas):
     alphas = update_alphas(q, points, mu, sigma, alphas)
     return alphas, q, mu, sigma
 
-def likelihood_k(q, points, mu, sigma):
+def likelihood(q, points, mu, sigma):
     res = 0
     for i in range(len(points)):
         res += log(q[0] * gaussian(points[i], mu[0], sigma[0]) +
