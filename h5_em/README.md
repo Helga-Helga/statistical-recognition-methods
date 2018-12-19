@@ -85,3 +85,17 @@ Then variance is
 ![Variance](images/sigma.png)
 <!--  \sigma_k^2 = \frac{\sum\limits_{i=1}^n \alpha_{ik} \cdot \left( x_i -
 \mu_k \right )^2}{\sum\limits_{i=1}^n \alpha_{ik}}, \, k = 1, 2 -->
+
+## Result
+
+In the output you can see an image where observations are shown as vertical lines.
+
+![Result](images/result.png)
+
+Their colors depends on probabilities
+![alpha](images/alpha.png) and can be red, blue, or something between.
+The more is a probability that an observation belongs to one class
+and the less is a probability that an observation belongs to other class,
+the clearer the color of an observation becomes.
+If probabilities are approximately the same,
+than the color of an observation is between red and blue.
