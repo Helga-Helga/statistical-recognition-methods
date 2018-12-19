@@ -25,13 +25,6 @@ from itertools import compress
 def gaussian(x, mu, sigma):
     return 1. / (sqrt(2 * pi * sigma)) * exp( -(x - mu)**2 / (2 * sigma))
 
-def get_groups(points, alphas):
-    mask = [alphas[0][i] >= alphas[1][i] for i in range(len(alphas[0]))]
-    not_mask = [~x for x in mask]
-    group1 = list(compress(points, mask))
-    group2 = list(compress(points, not_mask))
-    return group1, group2
-
 def update_alphas(q, points, mu, sigma, alphas):
     for i in range(len(points)):
         f0 = gaussian(points[i], mu[0], sigma[0])

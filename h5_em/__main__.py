@@ -22,7 +22,7 @@
 from matplotlib import pyplot
 from matplotlib.animation import FuncAnimation
 from numpy import random, linspace, zeros_like, array, zeros
-from em import gaussian, get_groups, em_step, likelihood_k
+from em import gaussian, em_step, likelihood_k
 
 fig = pyplot.figure()
 ax = fig.add_subplot(111)
