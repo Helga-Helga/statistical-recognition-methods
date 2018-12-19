@@ -30,6 +30,7 @@ We want to find such distributions that maximize probability of observation
 \left[ q_1 \cdot f \left( x_i; \theta_1 \right ) + q_2 \cdot f\left(x_i; \theta_2 \right ) \right] -->
 
 To move from a product to a sum by taking a logarithm
+
 ![Likelihood](images/likelihood.png)
 <!-- \ln p\left(X \right ) =
 \sum\limits_{i = 1}^n
